@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/head') %>
+</head>
+<body>
+    <header>
+        <%- include('./partials/header') %>
+
+    </header>
+
+    <style>
+    
+
+        .parallax {
+            max-width: 1200px;
+        }
+
+    </style>
+
+    <div class="parallax">
+        <div style="height: 90px;"></div>
+        <div class="header" style="border-radius: 10px; overflow: hidden; color:white;">
+            <h1 style="color:white;">Welcome, <%= username %>!</h1>
+        </div>
+
+        <div class="table-container">
+            <!--
+            <div class="header" style="border-radius: 10px; overflow: hidden;">
+                <h2>Your Postings</h2>
+                <a href="/studentApplications?employerid=<%= employerid %>">View Student Applications</a>
+                <a href="/posts?employerid=<%= employerid %>">Post New Job</a>
+            </div>
+            -->
+            <input onkeyup="filterJobs()" type="text" id="searchbar" placeholder="Search for key words...">
+            <script>
+                function filterJobs() {
+                    let input = document.getElementById('searchbar').value.toLowerCase();
+                    let table = document.querySelector('table tbody');
+                    let rows = table.getElementsByTagName('tr');
+
+                    for (let i = 0; i < rows.length; i++) {
+                        let cells = rows[i].getElementsByTagName('td');
+                        let match = false;
+
+                        for (let j = 0; j < cells.length; j++) {
+                            if (cells[j].innerText.toLowerCase().includes(input)) {
+                                match = true;
+                                break;
+                            }
+                        }
+
+                        rows[i].style.display = match ? '' : 'none';
+                    }
+                }
+            </script>
+            
+            <table style="border-radius: 10px; overflow: hidden;">
+                <style>
+                    tbody tr:nth-child(odd) {
+                        background-color: #80beff;
+                    }
+
+                    tbody tr:nth-child(even) {
+                        background-color: #f5e97e;
+                    }
+                </style>
+                <thead>
+                    <tr>
+                        <th>Job ID</th>
+                        <th>Title</th>
+                        <th>Salary</th>
+                        <th>Date Posted</th>
+                        <th class="status-cell">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% jobs.forEach(function(job, index) { %>
+                    <tr>
+                        <td>
+                            <div class="employee-info">
+                                <span><%= job.postingid  %></span>
+                            </div>
+                        </td>
+                        <td><%= job.title %></td>
+                        <td><%= job.salary %></td>
+                        <td><%= job.dateposted %></td>
+                        <td class="status-cell">
+                            <% if(job.status == "Approved"){ %>
+                                <button class="approved-btn">Approved ✅</button>
+                            <% } %>
+                            <% if(job.status == "Denied"){ %>
+                                <button class="denied-btn">Denied ❌</button>
+                            <% } %>
+                            <% if(job.status == "Pending"){ %>
+                              <button class="pending-btn">Pending 🤔</button>
+                            <% } %>                    
+                        </td>
+                    </tr>
+                    <% }); %>
+                    <% if(jobs.length < 1) { %>
+                        <tr>
+                            <td>
+                                <div class="employee-info">
+                                    <span>No Postings Found. You can add a new Post using the link above.</span>
+                                </div>
+                            </td>
+                        </tr>    
+                    <% } %>
+                    <!-- Add more rows as needed -->
+                </tbody>
+            </table>
+            <div style="height: 125px;"></div>
+        </div>
+    </div>
+
+    <style>
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+
+            color: white;
+            text-align: center;
+        }
+    </style>
+
+    </div>
+    <footer>
+        <%- include('./partials/footer') %>
+    </footer>
+</body>

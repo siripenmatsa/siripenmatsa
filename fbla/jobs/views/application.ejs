@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('./partials/head') %>
+</head>
+
+<body>
+  <header>
+    <%- include('./partials/header') %>
+  </header>
+
+  <style>
+    .parallax {
+    background-image: url("../../aai.jpg");
+    margin-top: -50px;
+    min-height: 800px;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+   }
+    
+    .form-container {
+      margin: 50px auto;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      width: 400px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 1.5em;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-size: 0.9em;
+      color: #555;
+      margin-bottom: 5px;
+      display: block;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 0.9em;
+    }
+
+    button {
+      background-color: #003366;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #a08105;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transform: scale(1.02);
+      transition: all 0.3s ease;
+    }
+
+    .upload-btn {
+      background-color: #003366;
+      color: #fff;
+      border: none;
+      text-align: center;
+      padding: 10px;
+    }
+
+    .upload-btn:hover {
+      background-color: #a08105;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transform: scale(1.02);
+      transition: all 0.3s ease;
+    }
+  </style>
+
+<div class="parallax">
+  <div style="height: 50px;"></div>
+<div class="form-container">
+    <h1>Apply Now</h1>
+    <form method="post" onsubmit="return validateForm()" action="/application" enctype="multipart/form-data">
+      <input type="hidden" name="studentid" value=<%= studentid %> >
+      <input type="hidden" name="postingid" value=<%= postingid %> >
+      <label for="name">Full Name*</label>
+      <input type="text" id="name" name="name" value=<%= username %> disabled>
+      <label for="email">Email Address*</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email" required>
+      <label for="phone">Phone Number*</label>
+      <input type="tel" id="phone" name="phone" placeholder="Enter your phone number (XXX-XXX-XXXX)" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+      <label for="job">Job Applying For:</label>
+      <input type="text" id="job" name="job" value=<%= postingid %> disabled>
+      <label for="profile">LinkedIn Profile*</label>
+      <input type="text" id="profile" name="profile" placeholder="Enter your LinkedIn profile" required>
+      <label for="resume">Upload Your Resume</label>
+      <input type="file" id="resume" name="resume" class="upload-btn" required>
+      <button type="submit" class="btn">Submit Application</button>
+    </form>
+  </div>
+
+  <button type="button" onclick="history.back()" style="background-color: #003366; color: #fff; border: none; cursor: pointer; font-weight: bold; width: 80%; padding: 10px; margin: 0 auto 15px auto; border-radius: 5px; font-size: 0.9em; display: block;">Go Back</button>
+</div>
+
+<footer>
+  <%- include('./partials/footer') %>
+</footer> 
+</body>
